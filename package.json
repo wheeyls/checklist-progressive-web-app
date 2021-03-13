@@ -1,0 +1,14 @@
+{
+  "name": "checklist-progressive-web-app",
+  "version": "1.0.0",
+  "description": "General Aviation Checklists",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.25.0"
+  }
+}
