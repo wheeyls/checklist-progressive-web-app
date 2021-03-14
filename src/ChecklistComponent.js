@@ -77,6 +77,7 @@ function ChecklistMenuComponent({ chosenSection, sections, onChoose, title }) {
   return (
     <nav className={classNames({ menu: true, 'menu--expanded': expanded })}>
       <div className='menu__head'>
+        <strong>{title}</strong>
         <button
           className={classNames({
             btn: true,
@@ -85,7 +86,6 @@ function ChecklistMenuComponent({ chosenSection, sections, onChoose, title }) {
           })}
           onClick={toggleExpand}
         ></button>
-        <strong>{title}</strong>
       </div>
       <ul>
         {sections.map((section) => (
