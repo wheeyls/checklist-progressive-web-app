@@ -55,6 +55,47 @@ function ChecklistSectionComponent({ section, onChoose, chosen }) {
   );
 }
 
+function ChecklistMenuComponent({ chosenSection, sections, onChoose }) {
+  const [expanded, setExpanded] = useState(true);
+
+  function toggleExpand() {
+    setExpanded(!expanded);
+  }
+
+  function handleChoose(section) {
+    onChoose(section);
+    setExpanded(false);
+  }
+
+  return (
+    <nav className={classNames({ menu: true, 'menu--expanded': expanded })}>
+      <button
+        className={classNames({
+          btn: true,
+          menu__toggle: true,
+          'menu__toggle--expanded': expanded
+        })}
+        onClick={toggleExpand}
+      >
+      </button>
+      <ul>
+        {sections.map((section) => (
+          <li
+            className={classNames({
+              menu__item: true,
+              'menu__item--selected': section === chosenSection
+            })}
+          >
+            <a href="#" onClick={() => handleChoose(section)}>
+              {section.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export function ChecklistComponent({ checklist, voice }) {
   const [sections, setSections] = useState(checklist.sections);
   const [chosenSection, setChosenSection] = useState(checklist.sections[0]);
@@ -75,9 +116,14 @@ export function ChecklistComponent({ checklist, voice }) {
   });
 
   return (
-    <div className='checklist'>
+    <div className="checklist">
       <h1>{checklist.title}</h1>
 
+      <ChecklistMenuComponent
+        chosenSection={chosenSection}
+        sections={checklist.sections}
+        onChoose={handleChosenSection}
+      />
       {checklist.sections.map((i) => (
         <ChecklistSectionComponent
           voice={voice}
