@@ -9,14 +9,10 @@ import './app.scss';
 
 const checklist = Checklist.fromMarkdown(cessnaChecklist);
 
-function arrayToGenerator(array) {
-  return array[Symbol.iterator]();
-}
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker
-      .register('/assets/serviceWorker.js')
+      .register('/serviceWorker.js')
       .then((res) => console.log('service worker registered'))
       .catch((err) => console.log('service worker not registered', err));
   });

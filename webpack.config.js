@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    app: './src/app.js',
+    'assets/app': './src/app.js',
     serviceWorker: './src/serviceWorker.js',
   },
   mode: 'development',
@@ -23,7 +23,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'public', 'assets'),
+    path: path.resolve(__dirname, 'public'),
   },
   devtool: 'inline-source-map',
   devServer: {
