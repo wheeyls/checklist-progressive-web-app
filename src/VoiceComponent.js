@@ -56,17 +56,6 @@ export function VoiceComponent({ voice }) {
         <button className="btn" onClick={slower}>
           Slower
         </button>
-        <div className='voice__delay'>
-          <label>Next item delay</label>
-          <input
-            type="range"
-            min={0}
-            max={15000}
-            step={500}
-            value={delay}
-            onChange={(e) => voice.setDelay(e.target.value)}
-          />
-        </div>
       </div>
     </div>
   );

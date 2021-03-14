@@ -1,4 +1,4 @@
-$voice-height: 100px;
+$voice-height: 75px;
 
 #container {
   margin-bottom: $voice-height;
@@ -68,9 +68,9 @@ h2 {
 
 .section__header {
   cursor: pointer;
-  padding: 12px 8px 0 8px;
+  padding: 12px 8px 8px 8px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -167,6 +167,7 @@ h2 {
 .menu__head {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .menu__item {
