@@ -1,7 +1,22 @@
+import { pubsub } from './pubsub';
+
 export class ChecklistItem {
-  constructor({ challenge, response = null }) {
+  constructor({ challenge, response = null, completed = false }) {
     this.challenge = challenge;
     this.response = response;
+    this.completed = completed;
+
+    pubsub(this);
+  }
+
+  toggle(value) {
+    if (value === undefined) {
+      this.completed = !this.completed;
+    } else {
+      this.completed = value;
+    }
+
+    this.emit('item:changed', [this]);
   }
 
   toMarkdown() {
@@ -18,6 +33,23 @@ export class ChecklistSection {
   constructor({ title, items = [] }) {
     this.title = title;
     this.items = items;
+    pubsub(this);
+  }
+
+  add(item) {
+    item.on('item:changed', (item) => {
+      this.emit('item:changed', [item]);
+    });
+
+    this.items.push(item);
+  }
+
+  reset() {
+    this.items.forEach(i => i.toggle(false));
+  }
+
+  nextItem() {
+    return this.items.find((i) => !i.completed);
   }
 
   toMarkdown() {
@@ -33,6 +65,16 @@ export class Checklist {
   constructor({ title, sections = [] }) {
     this.title = title;
     this.sections = sections;
+    pubsub(this);
+  }
+
+  add(section) {
+    section.on('item:changed', (item) => {
+      this.emit('item:changed', [item]);
+      this.emit('changed', [this]);
+    });
+
+    this.sections.push(section);
   }
 
   toMarkdown() {
@@ -97,10 +139,10 @@ function parseMarkdown(md) {
       checklist = new Checklist({ title: line.value });
     } else if (line.type === SECTION_TITLE) {
       section = new ChecklistSection({ title: line.value });
-      checklist.sections.push(section);
+      checklist.add(section);
     } else if (line.type === ITEM_CHALLENGE) {
       item = new ChecklistItem({ challenge: line.value });
-      section.items.push(item);
+      section.add(item);
     } else if (line.type === ITEM_RESPONSE) {
       item.response = line.value;
     }

@@ -47,25 +47,41 @@ describe('Checklist', () => {
     it('Items have responses', () => {
       expect(subject.sections[0].items[0].response).toEqual('Check');
     });
+
+    describe('when an item changes', () => {
+      it('emits an item:changed event', (done) => {
+        subject.on('item:changed', (item) => {
+          expect(item.completed).toEqual(true);
+          done();
+        });
+
+        subject.sections[0].items[0].toggle();
+      });
+
+      it('emits a changed event', (done) => {
+        subject.on('changed', (checklist) => {
+          expect(checklist).toEqual(subject);
+          done();
+        });
+
+        subject.sections[0].items[0].toggle();
+      });
+    });
   });
 
   describe('toMarkdown', () => {
     beforeEach(() => {
       subject = new Checklist({ title: 'Sample' });
-      subject.sections.push(new ChecklistSection({ title: 'Section 1' }));
-      subject.sections.push(new ChecklistSection({ title: 'Section 2' }));
+      subject.add(new ChecklistSection({ title: 'Section 1' }));
+      subject.add(new ChecklistSection({ title: 'Section 2' }));
 
-      subject.sections[0].items.push(
+      subject.sections[0].add(
         new ChecklistItem({ challenge: 'challenge', response: 'response' })
       );
 
-      subject.sections[0].items.push(
-        new ChecklistItem({ challenge: 'challenge 2' })
-      );
+      subject.sections[0].add(new ChecklistItem({ challenge: 'challenge 2' }));
 
-      subject.sections[1].items.push(
-        new ChecklistItem({ challenge: 'challenge' })
-      );
+      subject.sections[1].add(new ChecklistItem({ challenge: 'challenge' }));
     });
 
     it('spits outs correctly formatted markdown', () => {

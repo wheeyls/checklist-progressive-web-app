@@ -1,4 +1,4 @@
-const staticChecklistSite = 'checklist-v1';
+const staticChecklistSite = 'checklist-v2';
 const assets = ['/index.html', '/assets/app.js'];
 
 self.addEventListener('install', (installEvent) => {
@@ -11,7 +11,7 @@ self.addEventListener('install', (installEvent) => {
 
 self.addEventListener('fetch', (fetchEvent) => {
   fetchEvent.respondWith(
-    caches.match(fetchEvent.request).then((res) => {
+    caches.match(`${staticChecklistSite}-${fetchEvent.request}`).then((res) => {
       return res || fetch(fetchEvent.request);
     })
   );
