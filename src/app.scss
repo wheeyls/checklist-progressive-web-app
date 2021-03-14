@@ -57,7 +57,6 @@ h2 {
 }
 
 .section {
-  border: 1px solid #cacaca;
   border-bottom: 0;
 
   &:last-child {
@@ -69,14 +68,14 @@ h2 {
 
 .section__header {
   cursor: pointer;
-  padding: 12px 8px;
+  padding: 12px 8px 0 8px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
 .section__body {
-  padding: 12px 8px;
+  padding: 0 8px;
 }
 
 .section--selected {
@@ -85,7 +84,7 @@ h2 {
 
 .btn {
   border: 0;
-  background-color: #2690ce;
+  background-color: #1c4f6d;
   border-radius: 3px;
   padding: 8px 12px;
   color: white;
@@ -157,14 +156,16 @@ h2 {
 .menu__toggle {
   margin-bottom: 8px;
   &:after {
-    content: '▼'
+    content: '☰';
   }
 }
 
 .menu__toggle--expanded {
-  &:after {
-    content: '▲'
-  }
+}
+
+.menu__head {
+  display: flex;
+  justify-content: space-between;
 }
 
 .menu__item {
