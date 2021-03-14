@@ -3,9 +3,18 @@ import { pubsub } from './pubsub';
 export function playbacker(currentSection) {
   let paused = true;
   let delay = 1000;
+  let currentTimeout;
+  const bus = pubsub();
+
+  bus.on('cancel', () => {
+    window.speechSynthesis.cancel();
+    window.clearTimeout(currentTimeout);
+  });
 
   function speak(phrase) {
     return new Promise(function (resolve, reject) {
+      bus.on('cancel', reject);
+
       if (phrase == null || phrase == '') {
         return resolve();
       }
@@ -31,10 +40,12 @@ export function playbacker(currentSection) {
     return speak(`${item.challenge}: ${item.response || ''}`);
   }
 
-  function nextItem() {
+  function nextItem(count) {
     if (paused || !currentSection) {
       return;
     }
+
+    bus.emit('cancel');
 
     const item = currentSection.nextItem();
 
@@ -43,9 +54,9 @@ export function playbacker(currentSection) {
         .then(() => {
           item.toggle(true);
 
-          window.setTimeout(() => nextItem(), delay);
+          currentTimeout = window.setTimeout(() => nextItem(count), delay);
         })
-        .catch((ended) => {
+        .catch(() => {
           item.toggle(false);
         });
     } else {
@@ -53,13 +64,14 @@ export function playbacker(currentSection) {
     }
   }
 
+  let count = 0;
   const me = pubsub({
     play() {
       me.pause();
 
       paused = false;
       me.emit('changed');
-      nextItem();
+      nextItem(count += 1);
     },
 
     set(section) {
@@ -76,13 +88,11 @@ export function playbacker(currentSection) {
     },
 
     faster() {
-      delay = Math.max(delay - 500, 0);
-      me.emit('changed');
+      me.setDelay(Math.max(delay - 500, 0));
     },
 
     slower() {
-      delay = Math.min(delay + 500, 15000);
-      me.emit('changed');
+      me.setDelay(Math.min(delay + 500, 15000));
     },
 
     delay() {
@@ -91,13 +101,15 @@ export function playbacker(currentSection) {
 
     setDelay(value) {
       delay = value;
-      me.emit('changed');
+
+      if (!paused) {
+        me.play();
+      }
     },
 
     pause() {
       paused = true;
       me.emit('changed');
-      window.speechSynthesis.cancel();
     }
   });
 
