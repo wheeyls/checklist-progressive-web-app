@@ -32,18 +32,25 @@ function ChecklistItemComponent({ item }) {
   );
 }
 
-function ChecklistSectionComponent({ section, onChoose, chosen }) {
+function ChecklistSectionComponent({ section, onChoose, nextSection, prevSection, chosen }) {
   return (
     <div className={classNames({ section: true, 'section--selected': chosen })}>
       <div className="section__header">
         <h2 onClick={() => onChoose(section)}>{section.title}</h2>
+        <div>
+          <button className="btn" onClick={() => section.reset()}>
+            Reset
+          </button>
+          <button className="btn" onClick={() => prevSection()}>
+            Back
+          </button>
+          <button className="btn" onClick={() => nextSection()}>
+            Next
+          </button>
+        </div>
       </div>
 
       <div className="section__body">
-        <button className="btn" onClick={() => section.reset()}>
-          Reset
-        </button>
-
         {section.items.map((i) => (
           <ChecklistItemComponent
             item={i}
@@ -76,8 +83,7 @@ function ChecklistMenuComponent({ chosenSection, sections, onChoose }) {
           'menu__toggle--expanded': expanded
         })}
         onClick={toggleExpand}
-      >
-      </button>
+      ></button>
       <ul>
         {sections.map((section) => (
           <li
@@ -103,7 +109,7 @@ export function ChecklistComponent({ checklist, voice }) {
   voice.set(chosenSection);
 
   function handleChosenSection(section) {
-    setChosenSection(section);
+    setChosenSection(section || checklist.sections[0]);
   }
 
   useEffect(() => {
@@ -124,11 +130,13 @@ export function ChecklistComponent({ checklist, voice }) {
         sections={checklist.sections}
         onChoose={handleChosenSection}
       />
-      {checklist.sections.map((i) => (
+      {checklist.sections.map((i, idx) => (
         <ChecklistSectionComponent
           voice={voice}
           section={i}
           key={i.title}
+          prevSection={() => handleChosenSection(checklist.sections[idx - 1])}
+          nextSection={() => handleChosenSection(checklist.sections[idx + 1])}
           onChoose={handleChosenSection}
           chosen={chosenSection === i}
         />

@@ -70,6 +70,9 @@ h2 {
 .section__header {
   cursor: pointer;
   padding: 12px 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .section__body {
