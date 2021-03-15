@@ -5,6 +5,12 @@ import {
   CacheFirst
 } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { precacheAndRoute } from 'workbox-precaching';
+
+precacheAndRoute([
+  { url: '/index.html?utm_source=pwa', revision: 1 },
+  { url: '/assets/app.js', revision: 1 }
+]);
 
 // Cache page navigations (html) with a Network First strategy
 registerRoute(
