@@ -1,5 +1,35 @@
 export const cessnaChecklist = `# Cessna 177B 12984
 
+## Packing List
+
+- Primary Headset
+- Passenger Headset
+- iPhone
+- iPad
+- Battery Pack
+  - Charged
+- Stratus
+  - Charged
+- Charging Cables
+- Flashlight
+- AA Batteries
+  - In headset and backup
+- AAA Batteries
+  - In flashlight and backup
+- Kneeboard
+- iPad Strap
+- TAC and Sectional
+- Checklists
+- Mounts
+- Log Book
+- Pen and Pencil
+- Paperwork
+  - License, Medical, Insurance
+- Sunglasses
+- Hat
+- Water
+- Jacket
+
 ## Initial
 
 - Weather & Density Altitude
@@ -56,7 +86,8 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Alternate Static
 - Electric Trim
 
-## Start
+
+## Before Start
 
 - Seat Track / Back
   - Locked
@@ -73,8 +104,11 @@ export const cessnaChecklist = `# Cessna 177B 12984
   - High RPM
 - Throttle
   - One half inch
-- Prime
+
+## Start
+
 - Brakes
+- Prime
 - Prop
   - Clear
 - Master
@@ -303,4 +337,23 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Chocks / Tie downs
 - Pitot Cover
 - Baggage Door
-- Cabin doors`;
+- Cabin doors
+
+## Cleanup
+
+- Securing checklist
+  - Complete
+- Fuel
+  - Topped off
+- Ram mount
+- Stratus
+  - Packed
+- Checklist
+  - Returned
+- Glasses
+- Hat
+- Maps
+- Luggage
+- Keys
+- Rental details
+  - Reported`
