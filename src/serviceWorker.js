@@ -8,8 +8,8 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { precacheAndRoute } from 'workbox-precaching';
 
 precacheAndRoute([
-  { url: '/index.html?utm_source=pwa', revision: 1 },
-  { url: '/assets/app.js', revision: 1 }
+  { url: '/checklist-progressive-web-app/index.html?utm_source=pwa', revision: 2 },
+  { url: '/checklist-progressive-web-app/assets/app.js', revision: 2 }
 ]);
 
 // Cache page navigations (html) with a Network First strategy
