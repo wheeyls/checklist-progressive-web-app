@@ -86,6 +86,27 @@ function ChecklistSectionComponent({
   );
 }
 
+function ThemeToggleComponent() {
+  const [light, setLight] = useState(window.document.body.classList.contains('light-theme'));
+
+  function toggleLightMode() {
+    if (light) {
+      document.body.classList.remove('light-theme');
+    } else {
+      document.body.classList.add('light-theme');
+    }
+
+    setLight(!light);
+  }
+
+  return(<button
+    className={classNames({
+      btn: true,
+    })}
+    onClick={toggleLightMode}
+  >{light ? '☾' : '☀'}</button>)
+}
+
 function ChecklistMenuComponent({ chosenSection, sections, onChoose, title }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -102,14 +123,17 @@ function ChecklistMenuComponent({ chosenSection, sections, onChoose, title }) {
     <nav className={classNames({ menu: true, 'menu--expanded': expanded })}>
       <div className="menu__head">
         <strong>{title}</strong>
-        <button
-          className={classNames({
-            btn: true,
-            menu__toggle: true,
-            'menu__toggle--expanded': expanded
-          })}
-          onClick={toggleExpand}
-        ></button>
+        <div>
+          <ThemeToggleComponent />
+          <button
+            className={classNames({
+              btn: true,
+              menu__toggle: true,
+              'menu__toggle--expanded': expanded
+            })}
+            onClick={toggleExpand}
+          ></button>
+        </div>
       </div>
       <ul>
         {sections.map((section) => (
