@@ -1,34 +1,4 @@
-export const cessnaChecklist = `# Cessna 177B 12984
-
-## Packing List
-
-- Primary Headset
-- Passenger Headset
-- iPhone
-- iPad
-- Battery Pack
-  - Charged
-- Stratus
-  - Charged
-- Charging Cables
-- Flashlight
-- AA Batteries
-  - In headset and backup
-- AAA Batteries
-  - In flashlight and backup
-- Kneeboard
-- iPad Strap
-- TAC and Sectional
-- Checklists
-- Mounts
-- Log Book
-- Pen and Pencil
-- Paperwork
-  - License, Medical, Insurance
-- Sunglasses
-- Hat
-- Water
-- Jacket
+export const skyhawkRChecklist = `# Cessna 172R N596CS
 
 ## Initial
 
@@ -39,10 +9,10 @@ export const cessnaChecklist = `# Cessna 177B 12984
   - Filed
 - Papers
   - ARROW
-- Fuel Shutoff
-  - Wired on
 - Fuel Selector
   - Both
+- Fuel Shutoff Valve
+  - Full in
 - Control Lock
   - Removed
 - Master
@@ -55,6 +25,10 @@ export const cessnaChecklist = `# Cessna 177B 12984
   - Internal / External
 - Fuel Gauges
   - True
+- Low Fuel Lights
+  - Off
+- Avionics cooling fan
+  - Toggle Avionics master
 - Master
   - Off
 
@@ -84,7 +58,6 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Hobbs / Tach Time
 - Circuit Breakers
 - Alternate Static
-- Electric Trim
 
 
 ## Before Start
@@ -92,34 +65,44 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Seat Track / Back
   - Locked
 - Avionics
+  - Off
 - Autopilot
   - Off
-- Cowl Flaps
-  - Open
-- Carb Heat
-  - Off
-- Mixture
-  - Full rich
-- Prop
-  - High RPM
 - Throttle
-  - One half inch
+  - One quarter inch
+- Mixture
+  - Full lean
 
 ## Start
 
 - Brakes
-- Prime
+  - Set
 - Prop
   - Clear
-- Master
+- Battery
   - On
+- Alternator
+  - Off
+- Beacon
+  - On
+- Aux Fuel Pump
+  - On
+- Mixture Rich
+  - 3 to 5 GPH
+- Mixture
+  - Lean
+- Aux Fuel Pump
+  - Off
 - Mags
   - Start
+- Advance Mixture
+- Oil Pressure
+- Alternator
+  - On
 - Lights
   - As Required
 - Mixture
   - As Required
-
 
 ## Pre-Taxi / Taxi
 
@@ -160,18 +143,14 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Trim
   - Takeoff
 - Flight Controls
-  - Takeoff
-- Instrument
+  - Free and Clear
+- Annunciator Lights
+- Instruments
+- Nav / GPS switch
 - Mixture
   - Best Power
 - 1800 RPM
 - Mags
-  - Test
-- Prop
-  - Cycle
-- Carb Heat
-  - Test
-- Aux Fuel Pump
   - Test
 - Vacuum
 - Amps / Volts
@@ -179,60 +158,54 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Oil Temp
 - Idle
   - Check Closed
+- Mixture
+  - Find best power
 - Throttle Friction
 
 ## Pre-Takeoff
 
 - Flaps
-  - 10 to 15 degrees
+  - 0 to 10 degrees
 - Mixture
   - Best Power
-- Prop
-  - High RPM
-- Carb Heat
+- Aux fuel pump
   - Off
-- Pitot Heat
-  - As required
 - Transponder
   - Alt and Squawk
+- Pitot Heat
+  - As required
 - Heading Bug
 - Doors / Windows
 - Landing Light
   - On
 - Strobes
-  - On
+  - As Required
 - Time
   - Note
-- Brakes
-  - Release
 - Abort Plan
   - Ready
+- Brakes
+  - Release
 
 ## Takeoff
 
 - Full Throttle
-- 2700 RPM
-- Manifold Pressure
+- Takeoff power
+  - Set
 - Oil Pressure
 - Rotate
-  - 52
+  - 55
 - Best rate of climb
-  - 80
+  - 79
 - Flaps
   - Up
 
 ## Climb
 
 - Airspeed
-  - 78 to 87
-- Throttle
-  - 24 inches
-- Prop
-  - 2500 RPM
+  - 70 to 85
+- Power
 - Mixture
-  - As required
-- Cowl Flaps
-  - As required
 - Instruments
 - Taxi / Landing light
   - Off
@@ -241,27 +214,19 @@ export const cessnaChecklist = `# Cessna 177B 12984
 
 ## Cruise
 
-- Throttle
-- Prop
+- Power
 - Mixture
-- Cowl Flaps
-  - Close
 - Instruments
 
 ## Descent
 
-- Throttle
-  - As required
 - Mixture
-  - Richen
+  - As required
 - Fuel
   - Both
-- Carb Heat
-  - As Required
-- Cowl Flaps
-  - Close
 - Weather
 - Altimeter
+- Nav / GPS switch
 - Instruments
 
 ## Pre-Landing
@@ -275,8 +240,6 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Seat Belt / Harness
 - Mixture
   - Best Power
-- Carb Heat
-  - On
 - Fuel
   - Both
 - Flaps
@@ -285,16 +248,10 @@ export const cessnaChecklist = `# Cessna 177B 12984
 ## Landing
 
 - Flaps
-- Prop
-  - High RPM
-- 63
+- 65
 
 ## After Landing
 
-- Cowl Flaps
-  - Open
-- Carb Heat
-  - Off
 - Flaps
   - Up
 - Strobes
@@ -326,8 +283,6 @@ export const cessnaChecklist = `# Cessna 177B 12984
   - Off
 - Fuel
   - Left or Right
-- Cowl Flaps
-  - Close
 - Lights
   - Off
 - Hobbs / Tach time
@@ -337,23 +292,4 @@ export const cessnaChecklist = `# Cessna 177B 12984
 - Chocks / Tie downs
 - Pitot Cover
 - Baggage Door
-- Cabin doors
-
-## Cleanup
-
-- Securing checklist
-  - Complete
-- Fuel
-  - Topped off
-- Ram mount
-- Stratus
-  - Packed
-- Checklist
-  - Returned
-- Glasses
-- Hat
-- Maps
-- Luggage
-- Keys
-- Rental details
-  - Reported`
+- Cabin doors`;

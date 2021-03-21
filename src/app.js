@@ -2,12 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Checklist } from './Checklist';
 import { ChecklistComponent } from './ChecklistComponent';
-import { cessnaChecklist } from './cessnaChecklist';
+import { packingList } from './packingList';
+import { cardinalChecklist } from './cardinalChecklist';
+import { skyhawkRChecklist } from './skyhawkRChecklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
-const checklist = Checklist.fromMarkdown(cessnaChecklist);
+const checklists = [skyhawkRChecklist, cardinalChecklist, packingList].map(
+  (list) => {
+    return Checklist.fromMarkdown(list);
+  }
+);
+const checklist = checklists[0];
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
@@ -24,7 +31,11 @@ function App() {
   return (
     <>
       <VoiceComponent voice={voice} />
-      <ChecklistComponent checklist={checklist} voice={voice} />
+      <ChecklistComponent
+        checklist={checklist}
+        checklists={checklists}
+        voice={voice}
+      />
     </>
   );
 }
