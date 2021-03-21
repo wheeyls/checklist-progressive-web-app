@@ -36,24 +36,19 @@ export function VoiceComponent({ voice }) {
   return (
     <div className="voice">
       <div>
-        <button
-          className="btn"
-          disabled={paused ? '' : 'disabled'}
-          onClick={play}
-        >
-          Play
-        </button>
-        <button
-          className="btn"
-          disabled={paused ? 'disabled' : ''}
-          onClick={pause}
-        >
-          Pause
-        </button>
-        <button className="btn" onClick={faster}>
+        {paused ? (
+          <button className="btn btn--major btn--green" onClick={play}>
+            Play
+          </button>
+        ) : (
+          <button className="btn btn--major" onClick={pause}>
+            Pause
+          </button>
+        )}
+        <button className="btn btn--major" onClick={faster}>
           Faster
         </button>
-        <button className="btn" onClick={slower}>
+        <button className="btn btn--major" onClick={slower}>
           Slower
         </button>
       </div>
