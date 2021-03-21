@@ -46,7 +46,7 @@ h2 {
 }
 
 .item--current {
-  background: #333;
+  background: #eaeaea;
 }
 
 .item__check {
@@ -202,6 +202,10 @@ h2 {
   background: #000;
 
   .menu__item--selected {
+    background: #333;
+  }
+
+  .item--current {
     background: #333;
   }
 
