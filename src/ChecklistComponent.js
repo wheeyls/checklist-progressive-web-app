@@ -1,7 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
-function ChecklistItemComponent({ item }) {
+function ChecklistItemComponent({ item, current }) {
+  const myRef = useRef(null);
+
+  const executeScroll = () =>
+    myRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    });
+
+  if (current) {
+    window.setTimeout(executeScroll, 100);
+  }
+
   function toggleCheck() {
     item.toggle();
   }
@@ -9,9 +22,11 @@ function ChecklistItemComponent({ item }) {
   return (
     <>
       <div
+        ref={myRef}
         className={classNames({
           item: true,
-          'item--completed': item.completed
+          'item--completed': item.completed,
+          'item--current': current
         })}
         onClick={toggleCheck}
       >
@@ -32,7 +47,15 @@ function ChecklistItemComponent({ item }) {
   );
 }
 
-function ChecklistSectionComponent({ section, onChoose, nextSection, prevSection, chosen }) {
+function ChecklistSectionComponent({
+  section,
+  onChoose,
+  nextSection,
+  prevSection,
+  chosen
+}) {
+  const nextItem = section.nextItem();
+
   return (
     <div className={classNames({ section: true, 'section--selected': chosen })}>
       <div className="section__header">
@@ -54,6 +77,7 @@ function ChecklistSectionComponent({ section, onChoose, nextSection, prevSection
         {section.items.map((i) => (
           <ChecklistItemComponent
             item={i}
+            current={i === nextItem}
             key={`${section.title}-${i.challenge}-${i.response}`}
           />
         ))}
@@ -76,7 +100,7 @@ function ChecklistMenuComponent({ chosenSection, sections, onChoose, title }) {
 
   return (
     <nav className={classNames({ menu: true, 'menu--expanded': expanded })}>
-      <div className='menu__head'>
+      <div className="menu__head">
         <strong>{title}</strong>
         <button
           className={classNames({
@@ -126,7 +150,6 @@ export function ChecklistComponent({ checklist, voice }) {
 
   return (
     <div className="checklist">
-
       <ChecklistMenuComponent
         title={checklist.title}
         chosenSection={chosenSection}
