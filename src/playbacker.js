@@ -1,43 +1,47 @@
 import { pubsub } from './pubsub';
 
+class SpeechInstance {
+  constructor({ phrase }) {
+    this.utterance = new SpeechSynthesisUtterance();
+    this.utterance.text = phrase;
+    pubsub(this);
+  }
+
+  speak() {
+    this.utterance.onend = (event) => {
+      this.utterance.onend = undefined;
+
+      this.emit('spoken');
+      this.off();
+    };
+
+    window.speechSynthesis.speak(this.utterance);
+
+    return this;
+  }
+
+  cancel() {
+    this.utterance.onend = undefined;
+    window.speechSynthesis.cancel();
+    this.emit('canceled');
+    this.off();
+
+    return this;
+  }
+}
+
 export function playbacker(currentSection) {
   let paused = true;
   let delay = 1000;
   let currentTimeout;
-  const bus = pubsub();
-
-  bus.on('cancel', () => {
-    window.speechSynthesis.cancel();
-    window.clearTimeout(currentTimeout);
-  });
+  let speechInstance;
 
   function speak(phrase) {
-    return new Promise(function (resolve, reject) {
-      bus.on('cancel', reject);
-
-      if (phrase == null || phrase == '') {
-        return resolve();
-      }
-
-      let utterance = new SpeechSynthesisUtterance();
-      utterance.text = phrase;
-
-      utterance.onend = (event) => {
-        utterance.onend = undefined;
-
-        if (paused) {
-          reject();
-        } else {
-          resolve();
-        }
-      };
-
-      window.speechSynthesis.speak(utterance);
+    speechInstance = new SpeechInstance({
+      phrase
     });
-  }
 
-  function speakItem(item) {
-    return speak(`${item.challenge}: ${item.response || ''}`);
+    return speechInstance.speak();
   }
 
   function nextItem(count) {
@@ -45,22 +49,27 @@ export function playbacker(currentSection) {
       return;
     }
 
-    bus.emit('cancel');
+    if (speechInstance) {
+      speechInstance.cancel();
+    }
 
     const item = currentSection.nextItem();
 
     if (item) {
-      speakItem(item)
-        .then(() => {
-          item.toggle(true);
+      speak(`${item.challenge}: ${item.response || ''}`);
 
-          currentTimeout = window.setTimeout(() => nextItem(count), delay);
-        })
-        .catch(() => {
-          item.toggle(false);
-        });
+      speechInstance.on('spoken', () => {
+        item.toggle(true);
+
+        currentTimeout = window.setTimeout(() => nextItem(count), delay);
+      });
+
+      speechInstance.on('canceled', () => {
+        item.toggle(false);
+      });
     } else {
       me.pause();
+      speak('Checklist Complete');
     }
   }
 
@@ -71,7 +80,7 @@ export function playbacker(currentSection) {
 
       paused = false;
       me.emit('changed');
-      nextItem(count += 1);
+      nextItem((count += 1));
     },
 
     set(section) {
@@ -102,12 +111,12 @@ export function playbacker(currentSection) {
     setDelay(value) {
       delay = value;
 
-      if (!paused) {
-        me.play();
-      }
+      me.emit('changed');
     },
 
     pause() {
+      speechInstance && speechInstance.cancel();
+
       paused = true;
       me.emit('changed');
     }
