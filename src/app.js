@@ -5,11 +5,12 @@ import { ChecklistComponent } from './ChecklistComponent';
 import { packingList } from './packingList';
 import { cardinalChecklist } from './cardinalChecklist';
 import { skyhawkRChecklist } from './skyhawkRChecklist';
+import { skyhawkPChecklist } from './skyhawkPChecklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
-const checklists = [skyhawkRChecklist, cardinalChecklist, packingList].map(
+const checklists = [skyhawkRChecklist, skyhawkPChecklist, cardinalChecklist, packingList].map(
   (list) => {
     return Checklist.fromMarkdown(list);
   }
