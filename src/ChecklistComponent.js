@@ -114,7 +114,7 @@ function ThemeToggleComponent() {
 }
 
 function ChecklistMenu({ checklist, checklists, onChoose }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   function handleChoose(event, value) {
     event.preventDefault();
