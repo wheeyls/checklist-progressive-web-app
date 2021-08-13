@@ -1,4 +1,4 @@
-export const cardinalChecklist = `# Cessna 177B 12984
+export const n84488Checklist = `# Cessna 182P N84488
 
 ## Initial
 
@@ -9,14 +9,19 @@ export const cardinalChecklist = `# Cessna 177B 12984
   - Filed
 - Papers
   - ARROW
-- Fuel Shutoff
-  - Wired on
+
+## Cockpit
+
 - Fuel Selector
   - Both
 - Control Lock
   - Removed
 - Master
   - On
+- Low voltage light
+  - Blinks once
+- Amp meter
+  - Shows draw
 - Flaps
   - Extend
 - Pitot Heat
@@ -28,40 +33,19 @@ export const cardinalChecklist = `# Cessna 177B 12984
 - Master
   - Off
 
-## Exterior Summary
-
-- Fuel
-  - Quantity
-- Fuel
-  - Quality
-- Caps / Drains / Vents
-- Engine / Oil / Belt
-- Prop / Air Intake
-- Exhaust system
-- Stall Indicator
-  - Test
-- Surfaces & Controls
-- Pitot & Static Ports
-- Gear / Tires / Brakes
-- Antennas
-- Ties / Chocks / Towbar
-- Baggage Door
-- Final walk around
-
 ## Interior
 
 - Passenger Brief
 - Hobbs / Tach Time
 - Circuit Breakers
 - Alternate Static
-- Electric Trim
-
 
 ## Before Start
 
 - Seat Track / Back
   - Locked
 - Avionics
+  - Off
 - Autopilot
   - Off
 - Cowl Flaps
@@ -92,24 +76,21 @@ export const cardinalChecklist = `# Cessna 177B 12984
 - Mixture
   - As Required
 
-
 ## Pre-Taxi / Taxi
 
 - Flaps
   - Up
 - Seat Belts
   - Fastened
-- Harnesses
-  - Attached
 - Heat / Vent / Defrost
 - Avionics
   - On
+- iPad
+  - Connected
 - Weather
 - Altimeter
 - Transponder
   - Alt and Squawk
-- ADS-B
-  - On
 - Radio
   - Test
 - Taxi Light
@@ -173,43 +154,12 @@ export const cardinalChecklist = `# Cessna 177B 12984
   - On
 - Strobes
   - On
-- Time
+- Time and Field Elevation
   - Note
 - Brakes
   - Release
 - Abort Plan
   - Ready
-
-## Takeoff
-
-- Full Throttle
-- 2700 RPM
-- Manifold Pressure
-- Oil Pressure
-- Rotate
-  - 52
-- Best rate of climb
-  - 80
-- Flaps
-  - Up
-
-## Climb
-
-- Airspeed
-  - 78 to 87
-- Throttle
-  - 24 inches
-- Prop
-  - 2500 RPM
-- Mixture
-  - As required
-- Cowl Flaps
-  - As required
-- Instruments
-- Taxi / Landing light
-  - Off
-- Flight Plan
-  - Open
 
 ## Cruise
 
@@ -298,8 +248,6 @@ export const cardinalChecklist = `# Cessna 177B 12984
   - Off
 - Fuel
   - Left or Right
-- Cowl Flaps
-  - Close
 - Lights
   - Off
 - Hobbs / Tach time

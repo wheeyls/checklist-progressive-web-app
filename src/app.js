@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import { Checklist } from './Checklist';
 import { ChecklistComponent } from './ChecklistComponent';
 import { packingList } from './packingList';
+import { n84488Checklist } from './n84488Checklist';
 import { skyhawkRChecklist } from './skyhawkRChecklist';
-import { skyhawkPChecklist } from './skyhawkPChecklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
-const checklists = [skyhawkRChecklist, skyhawkPChecklist, packingList].map(
+const checklists = [n84488Checklist, skyhawkRChecklist, packingList].map(
   (list) => {
     return Checklist.fromMarkdown(list);
   }
