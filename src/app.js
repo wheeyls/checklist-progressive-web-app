@@ -4,12 +4,13 @@ import { Checklist } from './Checklist';
 import { ChecklistComponent } from './ChecklistComponent';
 import { packingList } from './packingList';
 import { n84488Checklist } from './n84488Checklist';
+import { n84488Preflight } from './n84488Preflight';
 import { skyhawkRChecklist } from './skyhawkRChecklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
-const checklists = [n84488Checklist, skyhawkRChecklist, packingList].map(
+const checklists = [n84488Checklist, n84488Preflight, skyhawkRChecklist, packingList].map(
   (list) => {
     return Checklist.fromMarkdown(list);
   }
