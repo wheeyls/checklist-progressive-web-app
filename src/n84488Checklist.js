@@ -5,7 +5,6 @@ export const n84488Checklist = `# Cessna 182P N84488
 - Passenger Brief
 - Hobbs / Tach Time
 - Circuit Breakers
-- Alternate Static
 
 ## Before Start
 
@@ -121,12 +120,12 @@ export const n84488Checklist = `# Cessna 182P N84488
   - On
 - Strobes
   - On
-- Time and Field Elevation
-  - Note
 - Brakes
   - Release
 - Abort Plan
   - Ready
+- Time and Field Elevation
+  - Note
 
 ## Cruise
 
