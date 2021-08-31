@@ -5,6 +5,8 @@ export const n84488Checklist = `# Cessna 182P N84488
 - Passenger Brief
 - Hobbs / Tach Time
 - Circuit Breakers
+- CO Detector
+  - On
 
 ## Before Start
 
@@ -90,8 +92,6 @@ export const n84488Checklist = `# Cessna 182P N84488
   - Cycle
 - Carb Heat
   - Test
-- Aux Fuel Pump
-  - Test
 - Vacuum
 - Amps / Volts
 - Oil Pressure
@@ -127,8 +127,21 @@ export const n84488Checklist = `# Cessna 182P N84488
 - Time and Field Elevation
   - Note
 
+## Climb
+- Cowl Flaps
+  - As required
+- Throttle
+  - 23"
+- Prop
+  - 2450
+- Mixture
+  - As required
+- Instruments
+- Lights
+
 ## Cruise
 
+- Lights
 - Throttle
 - Prop
 - Mixture
@@ -221,6 +234,8 @@ export const n84488Checklist = `# Cessna 182P N84488
   - Off
 - Hobbs / Tach time
 - Control Lock
+- CO Detector
+  - Off
 - Flight plan
   - Closed
 - Chocks / Tie downs

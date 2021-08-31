@@ -47,5 +47,5 @@ export const packingList = `# Packing Lists
 - Maps
 - Luggage
 - Keys
-- Rental details
-  - Reported`;
+- Hangar
+  - Pulled in`;
