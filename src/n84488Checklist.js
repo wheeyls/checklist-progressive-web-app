@@ -128,6 +128,7 @@ export const n84488Checklist = `# Cessna 182P N84488
   - Note
 
 ## Climb
+
 - Cowl Flaps
   - As required
 - Throttle
