@@ -71,18 +71,20 @@ export function VoiceComponent({ voice }) {
       <div>
         {paused ? (
           <button className="btn btn--major btn--green" onClick={play}>
-            Play
+            ▶
           </button>
         ) : (
           <button className="btn btn--major" onClick={pause}>
-            Pause
+            ■
           </button>
         )}
+      </div>
+      <div>
         <button className="btn btn--major" onClick={faster}>
-          Faster
+          ▲
         </button>
         <button className="btn btn--major" onClick={slower}>
-          Slower
+          ▼
         </button>
       </div>
       <ThemeToggleComponent />
