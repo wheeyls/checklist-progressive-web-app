@@ -3,18 +3,23 @@ import ReactDOM from 'react-dom';
 import { Checklist } from './Checklist';
 import { ChecklistComponent } from './ChecklistComponent';
 import { packingList } from './packingList';
-import { n84488Checklist } from './n84488Checklist';
+import { approachChecklist } from './approachChecklist';
+import { departureChecklist } from './departureChecklist';
+import { enrouteChecklist } from './enrouteChecklist';
 import { n84488Preflight } from './n84488Preflight';
-import { skyhawkRChecklist } from './skyhawkRChecklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
-const checklists = [n84488Checklist, n84488Preflight, skyhawkRChecklist, packingList].map(
-  (list) => {
-    return Checklist.fromMarkdown(list);
-  }
-);
+const checklists = [
+  n84488Preflight,
+  departureChecklist,
+  enrouteChecklist,
+  approachChecklist,
+  packingList
+].map((list) => {
+  return Checklist.fromMarkdown(list);
+});
 const checklist = checklists[0];
 
 if ('serviceWorker' in navigator) {

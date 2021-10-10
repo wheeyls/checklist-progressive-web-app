@@ -1,5 +1,58 @@
 import { pubsub } from './pubsub';
 
+function millisToMinutesAndSeconds(millis) {
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+}
+
+class Timer {
+  constructor(timeInMS) {
+    this.timeInMS = timeInMS;
+    this.timerId = null;
+
+    pubsub(this);
+    window.setInterval(() => {
+      if (this.running) {
+        this.emit('tick', [this.current()]);
+      }
+    }, 1000);
+  }
+
+  onComplete(fn) {
+    this.on('complete', fn);
+  }
+
+  onTick(fn) {
+    this.on('tick', fn);
+  }
+
+  current() {
+    if (!this.running) {
+      return '00:00';
+    }
+
+    return millisToMinutesAndSeconds(this.end.getTime() - new Date().getTime());
+  }
+
+  start() {
+    this.stop();
+    this.end = new Date(new Date().getTime() + this.timeInMS);
+
+    this.timerId = window.setTimeout(() => {
+      this.emit('complete');
+      this.stop();
+    }, this.timeInMS);
+
+    this.running = true;
+  }
+
+  stop() {
+    window.clearTimeout(this.timerId);
+    this.running = false;
+  }
+}
+
 export class ChecklistItem {
   constructor({ challenge, response = null, completed = false }) {
     this.challenge = challenge;
@@ -19,6 +72,10 @@ export class ChecklistItem {
     this.emit('item:changed', [this]);
   }
 
+  setResponse(value) {
+    this.response = value;
+  }
+
   toMarkdown() {
     if (this.response) {
       return `- ${this.challenge}
@@ -26,6 +83,33 @@ export class ChecklistItem {
     } else {
       return `- ${this.challenge}`;
     }
+  }
+}
+
+export class ChecklistTimerItem extends ChecklistItem {
+  constructor({ challenge, response = null, completed = false }) {
+    super({ challenge, response, completed });
+
+    this.challenge = "Set timer"
+
+    this.on('item:changed', (item) => {
+      if (item.completed) {
+        this.timer.start();
+      } else {
+        this.timer.stop();
+      }
+    });
+  }
+
+  setResponse(value) {
+    this.response = value;
+    this.minutes = parseInt(value, 10);
+    this.timer = new Timer(this.minutes * 60 * 1000);
+  }
+
+  toMarkdown() {
+    return `- !Timer
+  - ${this.response}`;
   }
 }
 
@@ -45,7 +129,7 @@ export class ChecklistSection {
   }
 
   reset() {
-    this.items.forEach(i => i.toggle(false));
+    this.items.forEach((i) => i.toggle(false));
   }
 
   nextItem() {
@@ -93,6 +177,7 @@ const CHECKLIST_TITLE = 0;
 const SECTION_TITLE = 1;
 const ITEM_CHALLENGE = 2;
 const ITEM_RESPONSE = 3;
+const TIMER_ITEM_CHALLENGE = 4;
 
 function buildIterator(array) {
   const list = array.slice();
@@ -110,6 +195,8 @@ function buildIterator(array) {
         item = { type: CHECKLIST_TITLE, value: currentMatch[1] };
       } else if ((currentMatch = line.match(/^## (.*)$/))) {
         item = { type: SECTION_TITLE, value: currentMatch[1] };
+      } else if ((currentMatch = line.match(/^- !Timer$/))) {
+        item = { type: TIMER_ITEM_CHALLENGE, value: currentMatch[1] };
       } else if ((currentMatch = line.match(/^- (.*)$/))) {
         item = { type: ITEM_CHALLENGE, value: currentMatch[1] };
       } else if ((currentMatch = line.match(/^  - (.*)$/))) {
@@ -140,11 +227,14 @@ function parseMarkdown(md) {
     } else if (line.type === SECTION_TITLE) {
       section = new ChecklistSection({ title: line.value });
       checklist.add(section);
+    } else if (line.type === TIMER_ITEM_CHALLENGE) {
+      item = new ChecklistTimerItem({ challenge: line.value });
+      section.add(item);
     } else if (line.type === ITEM_CHALLENGE) {
       item = new ChecklistItem({ challenge: line.value });
       section.add(item);
     } else if (line.type === ITEM_RESPONSE) {
-      item.response = line.value;
+      item.setResponse(line.value);
     }
   }
 

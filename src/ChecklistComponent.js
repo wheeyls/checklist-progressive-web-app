@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 function ChecklistItemComponent({ item, current }) {
+  const [response, setResponse] = useState(
+    (item.timer && item.timer.current()) || item.response
+  );
   const myRef = useRef(null);
 
   const executeScroll = () =>
@@ -17,6 +20,14 @@ function ChecklistItemComponent({ item, current }) {
 
   function toggleCheck() {
     item.toggle();
+  }
+
+  if (item.timer) {
+    useEffect(() => {
+      item.timer.onTick(setResponse);
+
+      return () => item.timer.off('tick', setResponse);
+    });
   }
 
   return (
@@ -39,9 +50,7 @@ function ChecklistItemComponent({ item, current }) {
           />
           {item.challenge}
         </div>
-        <div className={classNames({ item__response: 'true' })}>
-          {item.response}
-        </div>
+        <div className={classNames({ item__response: 'true' })}>{response}</div>
       </div>
     </>
   );
@@ -83,33 +92,6 @@ function ChecklistSectionComponent({
         ))}
       </div>
     </div>
-  );
-}
-
-function ThemeToggleComponent() {
-  const [light, setLight] = useState(
-    window.document.body.classList.contains('light-theme')
-  );
-
-  function toggleLightMode() {
-    if (light) {
-      document.body.classList.remove('light-theme');
-    } else {
-      document.body.classList.add('light-theme');
-    }
-
-    setLight(!light);
-  }
-
-  return (
-    <button
-      className={classNames({
-        btn: true
-      })}
-      onClick={toggleLightMode}
-    >
-      {light ? '☾' : '☀'}
-    </button>
   );
 }
 
@@ -167,7 +149,7 @@ function ChecklistMenuComponent({
   chosenSection,
   sections,
   onChoose,
-  onChangeChecklist,
+  onBack,
   checklists,
   checklist
 }) {
@@ -185,9 +167,8 @@ function ChecklistMenuComponent({
   return (
     <nav className={classNames({ menu: true, 'menu--expanded': expanded })}>
       <div className="menu__head">
-        <ChecklistMenu checklist={checklist} checklists={checklists} onChoose={onChangeChecklist} />
+        <a onClick={onBack}>Back</a>
         <div>
-          <ThemeToggleComponent />
           <button
             className={classNames({
               btn: true,
@@ -216,59 +197,89 @@ function ChecklistMenuComponent({
   );
 }
 
-export function ChecklistComponent({ checklist, voice, checklists }) {
-  const [currentChecklist, setCurrentChecklist] = useState(checklist);
-  const [sections, setSections] = useState(currentChecklist.sections);
-  const [chosenSection, setChosenSection] = useState(
-    currentChecklist.sections[0]
+export function ModeSelector({ checklists, onChoose }) {
+  function handleChoose(event, value) {
+    event.preventDefault();
+    onChoose(value);
+  }
+
+  return (
+    <>
+      <ul className="mode-selector">
+        {checklists.map((list) => (
+          <li
+            className="mode-selector__item"
+            onClick={(e) => handleChoose(e, list)}
+          >
+            {list.title}
+          </li>
+        ))}
+      </ul>
+    </>
   );
+}
+
+export function CurrentMode({ checklist, voice, clearChecklist }) {
+  const [sections, setSections] = useState(checklist.sections);
+  const [chosenSection, setChosenSection] = useState(checklist.sections[0]);
 
   voice.set(chosenSection);
 
-  function handleChosenSection(section) {
-    setChosenSection(section || currentChecklist.sections[0]);
-  }
-
-  function handleChosenChecklist(checklist) {
-    setCurrentChecklist(checklist);
-    setSections(checklist.sections);
-    setChosenSection(checklist.sections[0]);
-  }
-
   useEffect(() => {
     const update = () => {
-      setSections(currentChecklist.sections.slice());
+      setSections(checklist.sections.slice());
     };
 
-    currentChecklist.on('changed', update);
-    return () => currentChecklist.off('changed', update);
+    checklist.on('changed', update);
+    return () => checklist.off('changed', update);
   });
+
+  function handleChosenSection(section) {
+    setChosenSection(section || checklist.sections[0]);
+  }
 
   return (
     <div className="checklist">
       <ChecklistMenuComponent
         chosenSection={chosenSection}
-        sections={currentChecklist.sections}
+        sections={sections}
         onChoose={handleChosenSection}
-        onChangeChecklist={handleChosenChecklist}
-        checklist={currentChecklist}
-        checklists={checklists}
+        checklist={checklist}
+        onBack={clearChecklist}
       />
-      {currentChecklist.sections.map((i, idx) => (
+      {sections.map((i, idx) => (
         <ChecklistSectionComponent
           voice={voice}
           section={i}
           key={i.title}
-          prevSection={() =>
-            handleChosenSection(currentChecklist.sections[idx - 1])
-          }
-          nextSection={() =>
-            handleChosenSection(currentChecklist.sections[idx + 1])
-          }
+          prevSection={() => handleChosenSection(sections[idx - 1])}
+          nextSection={() => handleChosenSection(sections[idx + 1])}
           onChoose={handleChosenSection}
           chosen={chosenSection === i}
         />
       ))}
     </div>
   );
+}
+
+export function ChecklistComponent({ checklist, voice, checklists }) {
+  const [currentChecklist, setCurrentChecklist] = useState(null);
+
+  function clearChecklist() {
+    setCurrentChecklist(null);
+  }
+
+  if (currentChecklist) {
+    return (
+      <CurrentMode
+        checklist={currentChecklist}
+        voice={voice}
+        clearChecklist={clearChecklist}
+      />
+    );
+  } else {
+    return (
+      <ModeSelector checklists={checklists} onChoose={setCurrentChecklist} />
+    );
+  }
 }

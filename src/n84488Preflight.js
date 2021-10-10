@@ -1,4 +1,4 @@
-export const n84488Preflight = `# Preflight N84488
+export const n84488Preflight = `# Preflight
 
 ## Initial
 

@@ -1,4 +1,4 @@
-import { Checklist, ChecklistSection, ChecklistItem } from '../src/Checklist';
+import { Checklist, ChecklistSection, ChecklistItem, ChecklistTimerItem } from '../src/Checklist';
 
 let subject = null;
 const simpleExample = `# Checklist Title
@@ -11,7 +11,9 @@ const simpleExample = `# Checklist Title
 
 ## Section two
 
-- Item 3`;
+- Item 3
+- !Timer
+  - 15`;
 
 describe('Checklist', () => {
   it('can be initialized with nothing', () => {
@@ -46,6 +48,10 @@ describe('Checklist', () => {
 
     it('Items have responses', () => {
       expect(subject.sections[0].items[0].response).toEqual('Check');
+    });
+
+    it('!Timer items are Timer classes', () => {
+      expect(subject.sections[1].items[1]).toBeInstanceOf(ChecklistTimerItem);
     });
 
     describe('when an item changes', () => {

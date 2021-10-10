@@ -128,11 +128,13 @@ h2 {
 .voice {
   position: fixed;
   bottom: 0;
+  left: 0;
   height: $voice-height;
   width: 100%;
   display: flex;
   align-items: center;
   padding: 12px 8px;
+  justify-content: space-between;
 
   z-index: 999;
 
@@ -240,5 +242,17 @@ h2 {
 @media (prefers-color-scheme: dark) {
   body:not(.light-theme) {
     @include dark-theme;
+  }
+}
+
+.mode-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &__item {
+    text-align: center;
+    padding: 40px;
+    margin: 12px;
+    border: 1px solid gray;
   }
 }
