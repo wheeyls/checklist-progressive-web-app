@@ -239,12 +239,6 @@ h2 {
   @include dark-theme;
 }
 
-@media (prefers-color-scheme: dark) {
-  body:not(.light-theme) {
-    @include dark-theme;
-  }
-}
-
 .mode-selector {
   display: grid;
   grid-template-columns: 1fr 1fr;

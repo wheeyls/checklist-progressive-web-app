@@ -6,14 +6,20 @@ function ThemeToggleComponent() {
     window.document.body.classList.contains('light-theme')
   );
 
-  function toggleLightMode() {
+  function render() {
     if (light) {
-      document.body.classList.remove('light-theme');
-    } else {
       document.body.classList.add('light-theme');
+      document.body.classList.remove('dark-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+      document.body.classList.add('dark-theme');
     }
+  }
 
+  function toggleLightMode() {
     setLight(!light);
+
+    render();
   }
 
   return (
@@ -23,7 +29,7 @@ function ThemeToggleComponent() {
       })}
       onClick={toggleLightMode}
     >
-      {light ? '☾' : '☀'}
+      {light ? '☾' : '☼'}
     </button>
   );
 }
