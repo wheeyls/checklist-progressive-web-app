@@ -2,6 +2,8 @@ export const n84488Checklist = `# Flight
 
 ## Interior
 
+- Passenger briefing
+  - Complete
 - Hobbs / Tach Time
 - Circuit Breakers
 - Alternate Static
