@@ -25,18 +25,20 @@ export const n84488Preflight = `# Preflight
   - Removed
 - Master
   - On
+- Fuel Level
+  - Set
 - Amp meter
   - Shows draw
 - Electric gyros
   - Spinning up
+- Fuel Gauges
+  - True
 - Flaps
   - Extend
 - Pitot Heat
   - Test
 - Lights
   - Internal / External
-- Fuel Gauges
-  - True
 - Master
   - Off
 - Low voltage light
