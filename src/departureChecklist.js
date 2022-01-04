@@ -5,6 +5,8 @@ export const departureChecklist = `# Departure Mode
 - Passenger Brief
 - Hobbs / Tach Time
 - Circuit Breakers
+- Alternate Static
+  - Check
 - CO Detector
   - On
 

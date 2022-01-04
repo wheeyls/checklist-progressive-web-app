@@ -3,19 +3,15 @@ import ReactDOM from 'react-dom';
 import { Checklist } from './Checklist';
 import { ChecklistComponent } from './ChecklistComponent';
 import { packingList } from './packingList';
-import { approachChecklist } from './approachChecklist';
-import { departureChecklist } from './departureChecklist';
-import { enrouteChecklist } from './enrouteChecklist';
 import { n84488Preflight } from './n84488Preflight';
+import { n84488Checklist } from './n84488Checklist';
 import { playbacker } from './playbacker';
 import { VoiceComponent } from './VoiceComponent';
 import './app.scss';
 
 const checklists = [
   n84488Preflight,
-  departureChecklist,
-  enrouteChecklist,
-  approachChecklist,
+  n84488Checklist,
   packingList
 ].map((list) => {
   return Checklist.fromMarkdown(list);

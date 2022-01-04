@@ -25,10 +25,10 @@ export const n84488Preflight = `# Preflight
   - Removed
 - Master
   - On
-- Low voltage light
-  - Blinks once
 - Amp meter
   - Shows draw
+- Electric gyros
+  - Spinning up
 - Flaps
   - Extend
 - Pitot Heat
@@ -39,6 +39,8 @@ export const n84488Preflight = `# Preflight
   - True
 - Master
   - Off
+- Low voltage light
+  - Blinks once
 - Main Tire
   - Check
 - Flap
@@ -94,4 +96,13 @@ export const n84488Preflight = `# Preflight
 - Wing tip
   - Check
 - Aileron
-  - Movement and security`;
+  - Movement and security
+
+## Passenger Briefing
+
+- Seats, seatbelts, smoking
+- Air and heat options
+- Fire extinguisher
+- Exits, emergencies, equipment
+- Traffic and talking
+- Any questions?`;

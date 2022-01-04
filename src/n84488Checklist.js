@@ -1,10 +1,11 @@
-export const n84488Checklist = `# Cessna 182P N84488
+export const n84488Checklist = `# Flight
 
 ## Interior
 
-- Passenger Brief
 - Hobbs / Tach Time
 - Circuit Breakers
+- Alternate Static
+  - Check
 - CO Detector
   - On
 
@@ -193,7 +194,7 @@ export const n84488Checklist = `# Cessna 182P N84488
 - Flaps
 - Prop
   - High RPM
-- 63
+- 70
 
 ## After Landing
 
