@@ -146,6 +146,8 @@ export const n84488Checklist = `# Flight
 ## Cruise
 
 - Lights
+- Carb Heat
+  - As required
 - Throttle
 - Prop
 - Mixture
