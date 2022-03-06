@@ -38,6 +38,8 @@ export const n84488Checklist = `# Flight
   - On
 - Beacon
   - On
+- Engine Monitor
+  - Showing
 - Prop
   - Clear
 - Mags
