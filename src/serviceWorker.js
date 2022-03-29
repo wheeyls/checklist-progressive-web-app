@@ -1,16 +1,25 @@
-import { registerRoute } from 'workbox-routing';
+import { registerRoute, setCatchHandler } from 'workbox-routing';
 import {
   NetworkFirst,
   StaleWhileRevalidate,
   CacheFirst
 } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { precacheAndRoute } from 'workbox-precaching';
+import { precacheAndRoute, matchPrecache } from 'workbox-precaching';
 
 precacheAndRoute([
-  { url: '/checklist-progressive-web-app/index.html?utm_source=pwa', revision: 7 },
-  { url: '/checklist-progressive-web-app/assets/app.js', revision: 7 }
+  { url: '/checklist-progressive-web-app/index.html?utm_source=pwa', revision: _BUILD_VERSION_ },
+  { url: '/checklist-progressive-web-app/index.html', revision: _BUILD_VERSION_ },
+  { url: '/checklist-progressive-web-app/assets/app.js', revision: _BUILD_VERSION_ }
 ]);
+
+setCatchHandler(async ({ event }) => {
+  if (event.request.destination === 'document') {
+    return matchPrecache('/checklist-progressive-web-app/index.html');
+  }
+
+  return Response.error();
+});
 
 // Cache page navigations (html) with a Network First strategy
 registerRoute(

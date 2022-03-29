@@ -68,6 +68,7 @@ export function VoiceComponent({ voice }) {
 
   return (
     <div className="voice">
+      <ThemeToggleComponent />
       <div>
         {paused ? (
           <button className="btn btn--major btn--green" onClick={play}>
@@ -78,8 +79,6 @@ export function VoiceComponent({ voice }) {
             ■
           </button>
         )}
-      </div>
-      <div>
         <button className="btn btn--major" onClick={faster}>
           ▲
         </button>
@@ -87,7 +86,11 @@ export function VoiceComponent({ voice }) {
           ▼
         </button>
       </div>
-      <ThemeToggleComponent />
+      <div>
+        <button className="btn btn--major" onClick={() => voice.next() }>
+          ✓
+        </button>
+      </div>
     </div>
   );
 }

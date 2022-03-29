@@ -92,6 +92,14 @@ export function playbacker(currentSection) {
       currentSection = section;
     },
 
+    next() {
+      const item = currentSection.nextItem();
+
+      if (item) {
+        item.toggle(true);
+      }
+    },
+
     paused() {
       return paused;
     },
