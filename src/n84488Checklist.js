@@ -250,4 +250,8 @@ export const n84488Checklist = `# Flight
 - Chocks / Tie downs
 - Pitot Cover
 - Baggage Door
-- Cabin doors`;
+- Cabin doors
+- Keys
+  - As needed
+- Engine heat
+  - As needed`;
