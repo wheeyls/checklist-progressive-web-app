@@ -87,8 +87,8 @@ export function VoiceComponent({ voice }) {
         </button>
       </div>
       <div>
-        <button className="btn btn--major" onClick={() => voice.next() }>
-          Check
+        <button className="btn btn--major btn--green" onClick={() => voice.next() }>
+          ✓
         </button>
       </div>
     </div>

@@ -68,7 +68,7 @@ function ChecklistSectionComponent({
   return (
     <div className={classNames({ section: true, 'section--selected': chosen })}>
       <div className="section__header">
-        <h2 onClick={() => onChoose(section)}>{section.title}</h2>
+        <div></div>
         <div>
           <button className="btn" onClick={() => section.reset()}>
             Reset
@@ -83,6 +83,8 @@ function ChecklistSectionComponent({
       </div>
 
       <div className="section__body">
+        <h2 onClick={() => onChoose(section)}>{section.title}</h2>
+
         {section.items.map((i) => (
           <ChecklistItemComponent
             item={i}
